@@ -18,8 +18,8 @@ Route::put('jornada_laborals/{jornada_laboral}',[JornadaLaboralController::class
 
 
 Route::resource('roles', RoleController::class)->names('roles');
-Route::put('usuarios/estatus/{usuario}', [RegisteredUserController::class,'estatus'])->name('usuarios.estatus');
-Route::resource('usuarios', RegisteredUserController::class)->names('usuarios');
+Route::put('users/estatus/{usuario}', [RegisteredUserController::class,'estatus'])->name('usuarios.estatus');
+Route::resource('users', RegisteredUserController::class)->names('usuarios');
 
 
 Route::middleware([

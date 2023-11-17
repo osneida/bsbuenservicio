@@ -20,9 +20,9 @@ class JornadaLaboralController extends Controller
             'Horas Transcurridas',
             'Ubicación Inicio',
             'Ubicación Fin',
-            ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
-        ];
 
+        ];
+        //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         $tiempo_transcurrido = JornadaLaboral::with('user')->select(
             'user_id',
             'fecha_inicio',
@@ -36,7 +36,7 @@ class JornadaLaboralController extends Controller
             ->get();
 
 
-        return view('admin.jornadalaboral.index', compact('tiempo_transcurrido','heads'));
+        return view('admin.jornadalaboral.index', compact('tiempo_transcurrido', 'heads'));
     }
 
     public function suma()
@@ -51,15 +51,18 @@ class JornadaLaboralController extends Controller
             'Total Horas',
         ];
 
-        $tiempo_transcurrido = JornadaLaboral::with('user')->select('user_id',  DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(hora_fin, hora_inicio)))) as tiempo_transcurrido'),
-                                                                                DB::raw("CONCAT_WS('-',MONTH(fecha_inicio),YEAR(fecha_inicio)) as mes"))
-               ->groupby('user_id','mes')
-               ->orderByDesc('mes')
-               ->orderByDesc('user_id')
-               ->get();
+        $tiempo_transcurrido = JornadaLaboral::with('user')->select(
+            'user_id',
+            DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(hora_fin, hora_inicio)))) as tiempo_transcurrido'),
+            DB::raw("CONCAT_WS('-',MONTH(fecha_inicio),YEAR(fecha_inicio)) as mes")
+        )
+            ->groupby('user_id', 'mes')
+            ->orderByDesc('mes')
+            ->orderByDesc('user_id')
+            ->get();
 
-               
-     /*   $tiempo_transcurrido2 = JornadaLaboral::with('user')->select(
+
+        /*   $tiempo_transcurrido2 = JornadaLaboral::with('user')->select(
             'user_id',
             DB::raw($mes . ' as mes'),
             DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(hora_fin, hora_inicio)))) as tiempo_transcurrido')
@@ -91,7 +94,6 @@ class JornadaLaboralController extends Controller
         $id = $jornada->id;
 
         return view('admin.index', compact('hora_inicio', 'hora_fin', 'id'));
-   
     }
 
     public function show(string $id)

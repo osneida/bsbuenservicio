@@ -30,6 +30,7 @@
                 <td>{{ $horas->horas_transcurridas }} : {{ $horas->minutos_transcurridos}}</td>
                 <td>{{ $horas->ubicacion_inicio }}</td>
                 <td>{{ $horas->ubicacion_fin }}</td>
+                <!-- 
                 <td>
                     <div class="btn-group">
                         <div class="mr-1 ml-1">
@@ -46,7 +47,7 @@
                     </div>
                 </td>
             </tr>
-
+            -->
             @empty
             <tr>
                 <td colspan="6">No hay registros </td>

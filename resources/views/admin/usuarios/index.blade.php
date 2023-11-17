@@ -37,20 +37,16 @@
                     @endforeach
                     @endif
                 </td>
-
+                <td>
+                    <input type="checkbox" name="estatus" id="" class="opcion_estatus">
+                </td>
                 <td>
                     <div class="btn-group">
-                        <div class="mr-1 ml-1">
-                            <a href="" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
-                        </div>
-                        <div>
-                            <form action="" method="POST">
-                                @csrf
-                                @method('DELETE')
 
-                                <button type="submit" title="Eliminar" class="btn btn-danger btn-sm" onclick="return confirm('¿Realmente desea borrar el registro?') "><i class="far fa-trash-alt"></i></button>
-                            </form>
+                        <div class="mr-1 ml-1">
+                            <a href="{{route('usuarios.edit',$user)}}" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                         </div>
+
                     </div>
                 </td>
             </tr>
