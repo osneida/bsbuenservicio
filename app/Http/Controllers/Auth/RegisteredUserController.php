@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
             'Nombre',
             'Email',
             'Rol',
-            'Estatus',
+          //  'Estatus',
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
