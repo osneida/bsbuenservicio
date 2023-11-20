@@ -37,9 +37,9 @@
                     @endforeach
                     @endif
                 </td>
-             <!--   <td>
-                    <input type="checkbox" name="estatus" id="" class="opcion_estatus">
-                </td> -->
+                <td>
+                    <livewire:estatus-livewire />
+                </td>
                 <td>
                     <div class="btn-group">
 

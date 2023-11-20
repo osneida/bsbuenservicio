@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
             'Nombre',
             'Email',
             'Rol',
-          //  'Estatus',
+            'Estatus',
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
@@ -80,17 +80,4 @@ class RegisteredUserController extends Controller
         return redirect()->route('usuarios.index')->with('info', 'Empleado Modificado con éxito');
     }
 
-    public function show(string $id)
-    {
-
-
-        $user = '';
-        return view('admin.usuarios.show', compact('user'));
-    }
-
-    public function destroy(string $id)
-    {
-
-        return redirect(route('admin.usuarios.index'))->with('danger', 'Usuario eliminado con éxito');
-    }
 }

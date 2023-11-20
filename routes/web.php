@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JornadaLaboralController;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,11 @@ Route::put('jornada_laborals/{jornada_laboral}',[JornadaLaboralController::class
 
 
 Route::resource('roles', RoleController::class)->names('roles');
-Route::put('users/estatus/{usuario}', [RegisteredUserController::class,'estatus'])->name('usuarios.estatus');
 Route::resource('users', RegisteredUserController::class)->names('usuarios');
 
+//Route::put('users/estatus/{usuario}', [RegisteredUserController::class,'estatus'])->name('usuarios.estatus');
+Route::get('users/{id}/sofDelete',[UserController::class,'sofDelete'])->middleware('auth')->name('usuarios.sofDelete');
+Route::get('users/{id}/restore',[UserController::class,'restore'])->middleware('auth')->name('usuarios.restore');
 
 Route::middleware([
     'auth:sanctum',
