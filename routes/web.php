@@ -22,8 +22,13 @@ Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('users', RegisteredUserController::class)->names('usuarios');
 
 //Route::put('users/estatus/{usuario}', [RegisteredUserController::class,'estatus'])->name('usuarios.estatus');
-Route::get('users/{id}/sofDelete',[UserController::class,'sofDelete'])->middleware('auth')->name('usuarios.sofDelete');
-Route::get('users/{id}/restore',[UserController::class,'restore'])->middleware('auth')->name('usuarios.restore');
+//Route::get('users/{id}/sofDelete',[UserController::class,'sofDelete'])->middleware('auth')->name('usuarios.sofDelete');
+//Route::get('users/{id}/restore',[UserController::class,'restore'])->middleware('auth')->name('usuarios.restore');
+
+Route::get('/clientes', function () {
+    return view('admin.clientes.index');
+})->middleware(['auth'])->name('clientes');
+
 
 Route::middleware([
     'auth:sanctum',

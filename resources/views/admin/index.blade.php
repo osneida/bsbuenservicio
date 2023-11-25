@@ -78,13 +78,13 @@
                             <p> Clientes Activos </p>
                         </div>
                         <div class="col-lg-8 col-8 mt-2">
-                        <p> <b> ? </b> <br>
+                        <p> <b> {{$total_clientes}} </b> <br>
                         </div>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('clientes') }}" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
 
                 </div>
             </div>
