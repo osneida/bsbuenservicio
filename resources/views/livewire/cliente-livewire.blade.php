@@ -11,7 +11,7 @@
                 {{ Session::get('danger') }}
             </div>
             @endif
-            <a class="btn btn-primary btn-ms float-right" href="">Nuevo Cliente</a>
+            <a class="btn btn-primary btn-ms float-right" href="{{ route('clientes.create') }}">Nuevo Cliente</a>
         </div>
         <div class="card-body">
             <table class="table">
@@ -42,8 +42,8 @@
                             <input wire:click="status({{$cliente->id}})" type="checkbox" @if ($cliente->estatus) @checked(true) title = "Activo" @else title = "Inactivo" @endif>
                         </td>
                         <td>
-                        <button wire:click="" type="button" title="Editar" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pencil-alt"></i></button>
+                        <a href="{{ route('clientes.edit',$cliente) }}" type="button" title="Editar" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pencil-alt"></i></a>
                             <button wire:click="delete({{ $cliente->id }})" type="button" onclick="confirm('¿Está seguro que desea eliminar permanentemente el cliente: {{$cliente->name}} ?') || event.stopImmediatePropagation()" title="Eliminar Permanente" class="btn btn-danger btn-sm">
                                 <i class="far fa-trash-alt"></i></button>
                         </td>

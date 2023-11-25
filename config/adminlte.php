@@ -329,7 +329,7 @@ return [
         ],
         [
             'text' => 'Clientes',
-            //'route'=> 'clienteslive',
+            'route'=> 'clientes',   
             'icon' => 'fas fa-walking',
             'can'  => 'administrador',
         ],

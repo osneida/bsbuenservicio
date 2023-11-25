@@ -21,7 +21,7 @@
 
 <x-adminlte-card title="Crear Cliente">
     <div class="card-body">
-        <form method="POST" action="{{ route('cliente.store') }}">
+        <form method="POST" action="{{ route('clientes.store') }}">
             @csrf
             <div class="row">
                 <x-adminlte-input id="name" name="name" label="Nombre" error-key="name" placeholder="Nombre del Empleado" fgroup-class="col-md-6"  :value="old('name')" required autofocus autocomplete="name" />
@@ -33,7 +33,7 @@
                 <x-adminlte-input id="cif" name="cif" label="CIF" error-key="cif" placeholder="CIF" fgroup-class="col-md-6"  :value="old('cif')" required  autocomplete="cif" />
             </div>
             <div class="row">
-                <x-adminlte-input name="email" type="email" label="Correo/Email" placeholder="mail@example.com" fgroup-class="col-md-6"  :value="old('email')"  autocomplete="username" />
+                <x-adminlte-input name="mail" type="email" label="Correo/Email" placeholder="mail@example.com" fgroup-class="col-md-6"  :value="old('mail')"  autocomplete="username" />
             </div>
             <div class="row">
                 <x-adminlte-input name="phone" type="phone" label="Teléfono" placeholder="phone" fgroup-class="col-md-6"  :value="old('phone')"  autocomplete="phone" />
