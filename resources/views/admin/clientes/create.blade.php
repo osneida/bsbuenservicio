@@ -39,7 +39,8 @@
                 <x-adminlte-input name="phone" type="phone" label="Teléfono" placeholder="phone" fgroup-class="col-md-6"  :value="old('phone')"  autocomplete="phone" />
             </div>
             <div class="row">
-                <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="primary" icon="fas fa-lg fa-save" />
+                <x-adminlte-button class="btn-flat mr-4" type="submit" label="Guardar" theme="primary" icon="fas fa-lg fa-save"  />
+                <a href="{{ route('clientes') }} " > <x-adminlte-button  class="btn-flat" type="button" label="Volver" theme="success"  icon="fas fa-walking" /> </a> 
             </div>
         </form>
     </div>
