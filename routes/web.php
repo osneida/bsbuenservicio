@@ -13,7 +13,7 @@ Route::get('profile/username',[HomeController::class,'show'])->middleware('auth'
 Route::get('change/password',[HomeController::class,'show'])->middleware('auth')->name('changepassword.show');
 
 //jornadaLaboral
-Route::get('jornada_laborals',[JornadaLaboralController::class,'index'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.horastrabajadas');
+Route::get('jornada_laborals',[JornadaLaboralController::class,'index'])->middleware('auth')->name('jornada_laborals.horastrabajadas');
 Route::get('jornada_laborals/suma',[JornadaLaboralController::class,'suma'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.suma');
 Route::post('jornada_laborals',[JornadaLaboralController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.store');
 Route::put('jornada_laborals/{jornada_laboral}',[JornadaLaboralController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.update');
@@ -34,8 +34,6 @@ Route::get('clientes/create',[ClienteController::class,'create'])->middleware('a
 Route::post('clientes',[ClienteController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('clientes.store');
 Route::get('clientes/{id}/edit',[ClienteController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('clientes.edit');
 Route::put('clientes/{cliente}',[ClienteController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('clientes.update'); 
-
-
 
 
 Route::middleware([

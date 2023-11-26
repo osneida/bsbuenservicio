@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class ClienteLivewire extends Component
 {
     public $clientes;
-  
+    public $search = '';
     public function status(Cliente $cliente)
     {
         $cliente->update(['estatus' => !$cliente->estatus]);
@@ -21,9 +21,20 @@ class ClienteLivewire extends Component
         session()->flash('danger','Cliente eliminada correctamente');
     }
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+    ];
+
     public function render()
     {
-        $this->clientes = Cliente::OrderByDesc('estatus')->OrderBy('name')->get();
+        $this->clientes = Cliente::orWhere('name', 'LIKE', '%'.$this->search.'%')
+                                   ->orWhere('address', 'LIKE', '%'.$this->search.'%')
+                                   ->orWhere('cif', 'LIKE', '%'.$this->search.'%')
+                                   ->orWhere('mail', 'LIKE', '%'.$this->search.'%')
+                                   ->orWhere('phone', 'LIKE', '%'.$this->search.'%')
+                                   ->OrderByDesc('estatus')->OrderBy('name')->get();
         return view('livewire.cliente-livewire');
     }
+
 }
+
