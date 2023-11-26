@@ -48,7 +48,8 @@
                 @endforeach
             </div>
             <div class="row">
-                <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="primary" icon="fas fa-lg fa-save" />
+                <x-adminlte-button class="btn-flat mr-3" type="submit" label="Guardar" theme="primary" icon="fas fa-lg fa-save" />
+                <a href="{{ route('usuarios.index') }} " > <x-adminlte-button  class="btn-flat" type="button" label="Volver" theme="success"  icon="fas fa-lg fa-restroom" /> </a> 
             </div>
         </form>
     </div>
