@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ClienteController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TareaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JornadaLaboralController;
@@ -34,6 +35,19 @@ Route::get('clientes/create',[ClienteController::class,'create'])->middleware('a
 Route::post('clientes',[ClienteController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('clientes.store');
 Route::get('clientes/{id}/edit',[ClienteController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('clientes.edit');
 Route::put('clientes/{cliente}',[ClienteController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('clientes.update'); 
+
+//tareas
+/*
+Route::get('/tareas', function () {
+    return view('admin.tareas.index');
+})->middleware(['auth','can:administrador'])->name('tareas');
+
+Route::get('tareas/create',[TareaController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('tareas.create');
+Route::post('tareas',[TareaController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('tareas.store');
+Route::get('tareas/{id}/edit',[TareaController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('tareas.edit');
+Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('tareas.update'); 
+*/
+Route::resource('tareas', TareaController::class)->middleware('can:administrador')->names('tareas');
 
 
 Route::middleware([

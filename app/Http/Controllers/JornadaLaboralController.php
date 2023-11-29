@@ -18,9 +18,7 @@ class JornadaLaboralController extends Controller
             'Hora Inicio',
             'Hora Fin',
             'Horas Transcurridas',
-            'Ubicación Inicio',
-            'Ubicación Fin',
-
+            'Cliente',
         ];
         //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         $tiempo_transcurrido = JornadaLaboral::with('user')->select(
@@ -28,8 +26,7 @@ class JornadaLaboralController extends Controller
             'fecha_inicio',
             'hora_inicio',
             'hora_fin',
-            'ubicacion_inicio',
-            'ubicacion_fin',
+            'cliente',
             DB::raw('HOUR(TIMEDIFF(hora_fin, hora_inicio)) as horas_transcurridas'),
             DB::raw('MINUTE(TIMEDIFF(hora_fin, hora_inicio)) as minutos_transcurridos')
         )->orderByDesc('fecha_inicio')

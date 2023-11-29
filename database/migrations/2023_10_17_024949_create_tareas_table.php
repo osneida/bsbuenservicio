@@ -12,8 +12,13 @@ return new class extends Migration
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
             $table->string('tarea');
-            $table->date('fecha_entrega')->nullable();
-            $table->foreignId('user_id');
+            $table->string('estatus',20)->default('Pendiente');
+            $table->date('fecha')->nullable();
+            
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('cliente_id')->nullable();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class JornadaLaboral extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'fecha_inicio', 'hora_inicio', 'fecha_fin', 'hora_fin', 'ubicacion_inicio', 'ubicacion_fin'];
+    protected $fillable = ['user_id', 'fecha_inicio', 'hora_inicio', 'fecha_fin', 'hora_fin', 'cliente_id'];
 
     //relacion uno a mucho inversa
     public function user(): BelongsTo

@@ -46,7 +46,6 @@ class JornadaLivewire extends Component
         $data['user_id']      = $user->id;
         $data['hora_inicio']  = $this->hora_inicio;
         $data['fecha_inicio'] = date("y/m/d");
-        $data['ubicacion_inicio'] = "Yagua";
             
         $jornada = JornadaLaboral::create($data);
 
@@ -61,7 +60,6 @@ class JornadaLivewire extends Component
         date_default_timezone_set("Europe/Madrid");
         $this->hora_fin = date("H:i:s");
         $fecha_fin = date("y/m/d");
-        $ubicacion_fin = "Yagua fin";
 
         $jl = JornadaLaboral::find($this->id);
 

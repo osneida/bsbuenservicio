@@ -15,8 +15,8 @@ return new class extends Migration
             $table->time('hora_inicio');
             $table->date('fecha_fin')->nullable();
             $table->time('hora_fin')->nullable();
-            $table->string('ubicacion_inicio');
-            $table->string('ubicacion_fin')->nullable();
+            $table->foreignId('tarea_id')->constrained();
+            $table->string('observacion')->nullable();
             $table->timestamps();
         });
     }
