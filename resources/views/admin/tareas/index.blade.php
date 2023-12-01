@@ -25,16 +25,29 @@
                 <td>{{ $tarea->tarea }}</td>
                 <td>{{ $tarea->estatus }}</td>
                 <td>{{ $tarea->fecha }}</td>
+                @if($tarea->user)
                 <td>{{ $tarea->user->name }}</td>
-                <td>{{ $tarea->cliente->name }}</td>
+                @else
+                <td>Sin Asignar </td>
+                @endif
 
+                @if($tarea->cliente)
+                <td>{{ $tarea->cliente->name }}</td>
+                @else
+                <td>Sin Asignar </td>
+                @endif
                 <td>
                     <div class="btn-group">
-
                         <div class="mr-1 ml-1">
                             <a href="{{route('tareas.edit',$tarea)}}" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                         </div>
-
+                        <div class="mr-1 ml-1">
+                            <form action="{{ route('tareas.destroy', $tarea->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" title="Eliminar" class="btn btn-danger btn-sm" onclick="return confirm('¿Realmente desea borrar la tarea:  {{$tarea->tarea}} ?') "><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </td>
             </tr>

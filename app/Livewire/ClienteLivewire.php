@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Cliente;
 use Livewire\Component;
-use Illuminate\Support\Facades\Log;
 
 class ClienteLivewire extends Component
 {

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Tareas')
+@section('title', 'Editar Tareas')
 
 @section('content_header')
 
@@ -19,12 +19,13 @@
 
 @section('content')
 
-<x-adminlte-card title="Crear Tareas">
+<x-adminlte-card title="Editar Tareas">
     <div class="card-body">
-        <form method="POST" action="{{ route('tareas.store') }}">
+        <form method="POST" action="{{ route('tareas.update',$tarea)  }}">
             @csrf
+            @method('PUT')
             <div class="row">
-                <x-adminlte-input id="tarea" name="tarea" label="Tarea" error-key="tarea" placeholder="Descripción de la Tarea" fgroup-class="col-md-6" :value="old('tarea')" required autofocus autocomplete="tarea" />
+                <x-adminlte-input id="tarea" name="tarea" label="Tarea" error-key="tarea" placeholder="Descripción de la Tarea" fgroup-class="col-md-6" :value="old('tarea', $tarea->tarea)" required autofocus autocomplete="tarea" />
             </div>
             <div class="row">
                 @php
@@ -32,12 +33,10 @@
                 'format' => 'YYYY-MM-DD',
                 'dayViewHeaderFormat' => 'MMM YYYY',
                 'minDate' => "js:moment().startOf('month')",
-               
-                
                 ];
                 @endphp
                 <!-- 'maxDate' => "js:moment().endOf('month')", 'daysOfWeekDisabled' => [0, 6], -->
-                <x-adminlte-input-date name="fecha" label="Fecha Realización" igroup-size="sm" :config="$config" placeholder="Fecha para la tarea...">
+                <x-adminlte-input-date name="fecha" label="Fecha Realización" igroup-size="sm" :config="$config" :value="old('fecha', $tarea->fecha)">
                     <x-slot name="appendSlot">
                         <div class="input-group-text bg-dark">
                             <i class="fas fa-calendar-day"></i>
@@ -45,34 +44,21 @@
                     </x-slot>
                 </x-adminlte-input-date>
             </div>
-            <div >
+            <div>
                 <x-adminlte-select2 name="cliente_id" label="Cliente">
                     @forelse($clientes as $cliente)
-                    <option value={{$cliente->id}}>{{$cliente->name}}</option>
+                    <option value={{$cliente->id}} @if ($cliente->id == $tarea->cliente_id) selected @endif >{{$cliente->name}}</option>
                     @empty
                     <option value=0>Sin Clientes</option>
                     @endforelse
                 </x-adminlte-select2>
             </div>
-            <div >
-                {{-- With multiple slots, and plugin config parameter --}}
-                @php
-                $config = [
-                "placeholder" => "Selecciones los Empleados ...",
-                "allowClear" => true,
-                ];
-                @endphp
-                <x-adminlte-select2 id="user_id" name="user_id[]" label="Empleados" label-class="text-danger" igroup-size="sm" :config="$config" multiple>
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-red">
-                            <i class="fas fa-tag"></i>
-                        </div>
-                    </x-slot>
-                    <x-slot name="appendSlot">
-                        <x-adminlte-button theme="outline-dark" label="Clear" icon="fas fa-lg fa-ban text-danger" />
-                    </x-slot>
+            <div>
+
+                <x-adminlte-select2 name="user_id" label="Empleados">
+                    <option value=0>Seleccione un Empleado</option>
                     @forelse($empleados as $empleado)
-                    <option value="{{$empleado->id}}">{{$empleado->name}}</option>
+                    <option value={{$empleado->id}} @if ($empleado->id == $tarea->user_id) selected @endif>{{$empleado->name}}</option>
                     @empty
                     <option value=0>Sin Empleados</option>
                     @endforelse
