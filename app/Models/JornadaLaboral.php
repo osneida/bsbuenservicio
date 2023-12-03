@@ -6,17 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\Tarea;
+use App\Models\User;
 
 class JornadaLaboral extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'fecha_inicio', 'hora_inicio', 'fecha_fin', 'hora_fin', 'cliente_id'];
+    protected $fillable = ['user_id', 'fecha_inicio', 'hora_inicio', 'fecha_fin', 'hora_fin', 'tarea_id','observacion'];
 
     //relacion uno a mucho inversa
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function tarea(): BelongsTo
+    {
+        return $this->belongsTo(Tarea::class);
     }
 
     public function jornada_user($user_id){

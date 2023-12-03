@@ -28,6 +28,9 @@
                 <td>{{ $horas->hora_inicio }}</td>
                 <td>{{ $horas->hora_fin }}</td>
                 <td>{{ $horas->horas_transcurridas }} : {{ $horas->minutos_transcurridos}}</td>
+                <td>{{ $horas->tarea->cliente->name}}</td>
+                <td>{{ $horas->tarea->tarea}}</td>
+                <td>{{ $horas->observacion}}</td>
                 <!-- 
                 <td>
                     <div class="btn-group">

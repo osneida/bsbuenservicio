@@ -17,6 +17,8 @@ class TareaController extends Controller
 {
     public function index(): View
     {
+        $user = auth()->user();
+        $is_admin = $user->is_admin;
         $heads = [
             '#',
             'Tarea',
@@ -28,7 +30,28 @@ class TareaController extends Controller
         ];
 
         $tareas = Tarea::with('cliente')->with('user')->get();
-        return view('admin.tareas.index', compact('heads', 'tareas'));
+        return view('admin.tareas.index', compact('heads', 'tareas','is_admin'));
+    }
+
+    public function misTareas(): View
+    {
+
+        $user = auth()->user();
+        $is_admin = $user->is_admin;
+
+        $heads = [
+            '#',
+            'Tarea',
+            'Estatus',
+            'Fecha',
+            'Empleado',
+            'Cliente',
+            ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
+        ];
+
+        //    Log::info('mensaje de llegada de tareas mis ',['data'=> $user]);
+        $tareas = Tarea::with('cliente')->with('user')->where('user_id', $user->id)->get();
+        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin'));
     }
 
     public function create(): view
@@ -71,17 +94,17 @@ class TareaController extends Controller
         $clientes  = Cliente::select('id', 'name')->where('estatus', 1)->orderBy('name')->get();
         $empleados = User::select('id', 'name')->orderBy('name')->get();
 
-        return view('admin.tareas.edit',compact('tarea','clientes','empleados'));
+        return view('admin.tareas.edit', compact('tarea', 'clientes', 'empleados'));
     }
 
     public function update(TareaRequest $request, Tarea $tarea)
     {
-        $data = $request->all(); 
-        if( $data['user_id'] == 0){
-            $data['user_id']=NULL;
+        $data = $request->all();
+        if ($data['user_id'] == 0) {
+            $data['user_id'] = NULL;
         }
-        if( $data['cliente_id'] == 0){
-            $data['cliente_id']=NULL;
+        if ($data['cliente_id'] == 0) {
+            $data['cliente_id'] = NULL;
         }
         $tarea->update($data);
         return redirect()->route('tareas.index')->with('info', 'Tarea modificada con éxito');

@@ -18,6 +18,7 @@ Route::get('jornada_laborals',[JornadaLaboralController::class,'index'])->middle
 Route::get('jornada_laborals/suma',[JornadaLaboralController::class,'suma'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.suma');
 Route::post('jornada_laborals',[JornadaLaboralController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.store');
 Route::put('jornada_laborals/{jornada_laboral}',[JornadaLaboralController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.update');
+Route::get('jornada_laborals.misjornadas/',[JornadaLaboralController::class,'misJornadas'])->middleware('auth')->name('jornada_laborals.misJornadas');
 
 
 Route::resource('roles', RoleController::class)->middleware('can:administrador')->names('roles');
@@ -48,7 +49,7 @@ Route::get('tareas/{id}/edit',[TareaController::class,'edit'])->middleware('auth
 Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('tareas.update'); 
 */
 Route::resource('tareas', TareaController::class)->middleware('can:administrador')->names('tareas');
-
+Route::get('tareas.mistareas/',[TareaController::class,'misTareas'])->middleware('auth')->name('tareas.mistareas');
 
 Route::middleware([
     'auth:sanctum',

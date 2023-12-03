@@ -15,7 +15,9 @@
             {{ Session::get('danger') }}
         </div>
         @endif
+        @if($is_admin)
         <a class="btn btn-primary btn-ms float-right" href="{{ route('tareas.create') }}">Nueva Tarea</a>
+        @endif
     </div>
     <div class="card-body">
         <x-adminlte-datatable id="tarea" :heads="$heads" striped head-theme="dark" striped hoverable with-buttons>
@@ -36,6 +38,8 @@
                 @else
                 <td>Sin Asignar </td>
                 @endif
+                
+                @if($is_admin)
                 <td>
                     <div class="btn-group">
                         <div class="mr-1 ml-1">
@@ -50,6 +54,7 @@
                         </div>
                     </div>
                 </td>
+                @endif
             </tr>
             @empty
             <tr>

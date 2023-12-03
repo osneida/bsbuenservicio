@@ -12,21 +12,57 @@ class JornadaLaboralController extends Controller
     {
 
         $heads = [
-            'Nro',
+            '#',
             'Trabajador',
             'Fecha',
             'Hora Inicio',
             'Hora Fin',
             'Horas Transcurridas',
             'Cliente',
+            'Tarea',
+            'Observación'
         ];
         //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
-        $tiempo_transcurrido = JornadaLaboral::with('user')->select(
+        $tiempo_transcurrido = JornadaLaboral::with('user')->with('tarea')->select(
             'user_id',
             'fecha_inicio',
             'hora_inicio',
             'hora_fin',
-            'cliente',
+            'tarea_id',
+            'observacion',
+            DB::raw('HOUR(TIMEDIFF(hora_fin, hora_inicio)) as horas_transcurridas'),
+            DB::raw('MINUTE(TIMEDIFF(hora_fin, hora_inicio)) as minutos_transcurridos')
+        )->orderByDesc('fecha_inicio')
+            ->get();
+
+
+        return view('admin.jornadalaboral.index', compact('tiempo_transcurrido', 'heads'));
+    }
+
+
+    public function misJornadas()
+    {
+        $user = auth()->user();
+
+        $heads = [
+            '#',
+            'Trabajador',
+            'Fecha',
+            'Hora Inicio',
+            'Hora Fin',
+            'Horas Transcurridas',
+            'Cliente',
+            'Tarea',
+            'Observación'
+        ];
+        //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
+        $tiempo_transcurrido = JornadaLaboral::where('user_id',$user->id)->with('user')->with('tarea')->select(
+            'user_id',
+            'fecha_inicio',
+            'hora_inicio',
+            'hora_fin',
+            'tarea_id',
+            'observacion',
             DB::raw('HOUR(TIMEDIFF(hora_fin, hora_inicio)) as horas_transcurridas'),
             DB::raw('MINUTE(TIMEDIFF(hora_fin, hora_inicio)) as minutos_transcurridos')
         )->orderByDesc('fecha_inicio')

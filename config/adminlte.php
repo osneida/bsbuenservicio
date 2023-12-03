@@ -351,6 +351,19 @@ return [
             'icon' => 'fas fa-download',
             'can'  => 'administrador',
         ],
+        ['header' => '___________________'],
+        [
+            'text' => 'Mis Tareas',
+            'route'=> 'tareas.mistareas',
+            'icon' => 'fas fa-tasks',
+        ],
+        [
+            'text' => 'Mis Jornadas',
+            'route'=> 'jornada_laborals.misJornadas',
+            'icon' => 'fas fa-hourglass-half',
+        ],
+
+        
 
     ],
 
