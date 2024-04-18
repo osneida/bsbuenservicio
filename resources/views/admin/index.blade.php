@@ -34,11 +34,11 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                     <div class="row text-center">
-                        <div class="col-lg-4 col-4">
+                        <div class="col-lg-8 col-8">
                             <h3> </h3>
-                            <p> Jornadas Realizadas </p>
+                            <p>Jornadas Realizadas</p>
                         </div>
-                        <div class="col-lg-8 col-8 mt-2">
+                        <div class="col-lg-4 col-4 mt-2">
                             <p> <b> {{$total_jornadas}} </b> <br>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             <p> Clientes Activos </p>
                         </div>
                         <div class="col-lg-8 col-8 mt-2">
-                        <p> <b> {{$total_clientes}} </b> <br>
+                            <p> <b> {{$total_clientes}} </b> <br>
                         </div>
                     </div>
                     <div class="icon">
