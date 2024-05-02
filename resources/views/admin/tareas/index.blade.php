@@ -27,6 +27,8 @@
                 <td>{{ $tarea->tarea }}</td>
                 <td>{{ $tarea->estatus }}</td>
                 <td>{{ $tarea->fecha }}</td>
+                <td>{{ $tarea->horas }}</td>
+
                 @if($tarea->user)
                 <td>{{ $tarea->user->name }}</td>
                 @else

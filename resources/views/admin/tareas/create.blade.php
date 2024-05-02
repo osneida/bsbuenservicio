@@ -45,6 +45,10 @@
                     </x-slot>
                 </x-adminlte-input-date>
             </div>
+            <div>
+               <x-adminlte-input id="horas" name="horas" label="Horas" error-key="horas" placeholder="horas" fgroup-class="col-md-6" :value="old('horas')" />
+            
+            </div>
             <div >
                 <x-adminlte-select2 name="cliente_id" label="Cliente">
                     @forelse($clientes as $cliente)

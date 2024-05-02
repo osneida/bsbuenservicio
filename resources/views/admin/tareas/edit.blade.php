@@ -45,6 +45,9 @@
                 </x-adminlte-input-date>
             </div>
             <div>
+            <x-adminlte-input id="horas" name="horas" label="Horas" error-key="horas" placeholder="horas" fgroup-class="col-md-6" :value="old('horas', $tarea->horas)" />
+            </div>
+            <div>
                 <x-adminlte-select2 name="cliente_id" label="Cliente">
                     @forelse($clientes as $cliente)
                     <option value={{$cliente->id}} @if ($cliente->id == $tarea->cliente_id) selected @endif >{{$cliente->name}}</option>

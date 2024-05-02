@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
-//use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;
 
 class TareaController extends Controller
 {
@@ -67,7 +67,7 @@ class TareaController extends Controller
     public function store(TareaRequest $request)
     {
 
-        // Log::info('mensaje de llegada de empleados ',['data'=>request()->all()]);
+        Log::info('mensaje de llegada de empleados ',['data'=>request()->all()]);
 
         try {
             DB::beginTransaction();
