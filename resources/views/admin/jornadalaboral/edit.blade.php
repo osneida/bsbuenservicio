@@ -49,10 +49,10 @@
                 </x-adminlte-input-date>
             </div>
             <div class="row">
-                <x-adminlte-input id="hora_inicio" name="hora_inicio" data-inputmask='"mask": "00:00:00"' data-mask label="Hora Inicio" error-key="hora_inicio" placeholder="00:00:00" fgroup-class="col-md-6" :value="old('hora_inicio', $jornada_laboral->hora_inicio)" required />
+                <x-adminlte-input id="hora_inicio" name="hora_inicio"    label="Hora Inicio" error-key="hora_inicio" placeholder="00:00:00" fgroup-class="col-md-6" :value="old('hora_inicio', $jornada_laboral->hora_inicio)" required />
             </div>
             <div class="row">
-                <x-adminlte-input id="hora_fin" name="hora_fin" data-inputmask='"mask": "00:00:00"' data-mask label="Hora Fin" error-key="hora_fin" placeholder="00:00:00" fgroup-class="col-md-6" :value="old('hora_fin',$jornada_laboral->hora_fin)" required />
+                <x-adminlte-input id="hora_fin" name="hora_fin" label="Hora Fin" error-key="hora_fin" placeholder="00:00:00" fgroup-class="col-md-6" :value="old('hora_fin',$jornada_laboral->hora_fin)" required />
             </div>
 
             <div class="row">
@@ -67,11 +67,3 @@
 </x-adminlte-card>
 
 @stop
-
-@section('js')
-<script>
-    $(function () {
-        $('[data-mask]').inputmask();
-    });
-</script>
-@endsection
