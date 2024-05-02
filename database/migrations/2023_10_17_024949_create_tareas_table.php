@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('tarea');
             $table->string('estatus',20)->default('Pendiente');
             $table->date('fecha')->nullable();
+            $table->integer('horas')->default(1);
             
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

@@ -12,7 +12,7 @@ class Tarea extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tarea', 'estatus', 'fecha', 'user_id', 'cliente_id'];
+    protected $fillable = ['tarea', 'estatus', 'fecha', 'user_id', 'cliente_id','horas'];
 
  
     public function user(): BelongsTo

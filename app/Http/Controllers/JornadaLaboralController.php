@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JornadaLaboralRequest;
 use App\Models\JornadaLaboral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,10 +21,11 @@ class JornadaLaboralController extends Controller
             'Horas Transcurridas',
             'Cliente',
             'Tarea',
-            'Observación'
+            'Observación',
+            'label' => 'Acciones',
         ];
-        //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         $tiempo_transcurrido = JornadaLaboral::with('user')->with('tarea')->select(
+            'id',
             'user_id',
             'fecha_inicio',
             'hora_inicio',
@@ -56,7 +58,7 @@ class JornadaLaboralController extends Controller
             'Observación'
         ];
         //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
-        $tiempo_transcurrido = JornadaLaboral::where('user_id',$user->id)->with('user')->with('tarea')->select(
+        $tiempo_transcurrido = JornadaLaboral::where('user_id', $user->id)->with('user')->with('tarea')->select(
             'user_id',
             'fecha_inicio',
             'hora_inicio',
@@ -129,15 +131,6 @@ class JornadaLaboralController extends Controller
         return view('admin.index', compact('hora_inicio', 'hora_fin', 'id'));
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
 
     public function update(Request $request, JornadaLaboral $jornada_laboral)
     {
@@ -157,9 +150,16 @@ class JornadaLaboralController extends Controller
         return view('admin.index', compact('hora_inicio', 'hora_fin', 'id'));
     }
 
-
-    public function destroy(string $id)
+    public function edit($id)
     {
-        //
+        $jornada_laboral  = JornadaLaboral::with('user', 'tarea')->findOrFail($id);
+        return view('admin.jornadalaboral.edit', compact('jornada_laboral'));
+    }
+
+    public function updateJornada(JornadaLaboralRequest $request, JornadaLaboral $jornada_laboral)
+    {
+        $jornada_laboral->update($request->all());
+        return redirect()->route('jornada_laborals.horastrabajadas');
+
     }
 }

@@ -31,24 +31,16 @@
                 <td>{{ $horas->tarea->cliente->name}}</td>
                 <td>{{ $horas->tarea->tarea}}</td>
                 <td>{{ $horas->observacion}}</td>
-                <!-- 
+                 
                 <td>
                     <div class="btn-group">
                         <div class="mr-1 ml-1">
-                            <a href="" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
-                        </div>
-                        <div>
-                            <form action="" method="POST">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" title="Eliminar" class="btn btn-danger btn-sm" onclick="return confirm('¿Realmente desea borrar el registro?') "><i class="far fa-trash-alt"></i></button>
-                            </form>
+                            <a href="{{ route('jornada_laborals_fron.edit',$horas) }}" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                         </div>
                     </div>
                 </td>
             </tr>
-            -->
+      
             @empty
             <tr>
                 <td colspan="6">No hay registros </td>

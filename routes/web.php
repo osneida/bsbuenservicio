@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TareaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JornadaLaboralController;
+use App\Http\Controllers\JornadaLaboralFronController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -20,6 +21,9 @@ Route::post('jornada_laborals',[JornadaLaboralController::class,'store'])->middl
 Route::put('jornada_laborals/{jornada_laboral}',[JornadaLaboralController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals.update');
 Route::get('jornada_laborals.misjornadas/',[JornadaLaboralController::class,'misJornadas'])->middleware('auth')->name('jornada_laborals.misJornadas');
 
+//jornadaLaboral
+Route::get('jornada_laborals_fron/{id}/edit',[JornadaLaboralController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals_fron.edit');
+Route::put('jornada_laborals_fron/{jornada_laboral}',[JornadaLaboralController::class,'updateJornada'])->middleware('auth')->middleware('can:administrador')->name('jornada_laborals_fron.update');
 
 Route::resource('roles', RoleController::class)->middleware('can:administrador')->names('roles');
 Route::resource('users', RegisteredUserController::class)->middleware('can:administrador')->names('usuarios');

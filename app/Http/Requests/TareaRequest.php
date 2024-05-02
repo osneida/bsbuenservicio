@@ -16,7 +16,8 @@ class TareaRequest extends FormRequest
         return [
             'tarea'      => 'required|string|min:3|max:255',
             'fecha'      => 'required|date',
-            'cliente_id' => 'required|exists:clientes,id'
+            'cliente_id' => 'required|exists:clientes,id',
+            'Horas'      => 'required|numeric',
         ];
     }
 }
