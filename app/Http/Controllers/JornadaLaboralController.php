@@ -57,7 +57,6 @@ class JornadaLaboralController extends Controller
             'Tarea',
             'Observación'
         ];
-        //['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         $tiempo_transcurrido = JornadaLaboral::where('user_id', $user->id)->with('user')->with('tarea')->select(
             'user_id',
             'fecha_inicio',
@@ -71,7 +70,7 @@ class JornadaLaboralController extends Controller
             ->get();
 
 
-        return view('admin.jornadalaboral.index', compact('tiempo_transcurrido', 'heads'));
+        return view('admin.jornadalaboral.mijornada', compact('tiempo_transcurrido', 'heads'));
     }
 
     public function suma()
