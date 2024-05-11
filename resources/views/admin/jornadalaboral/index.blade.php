@@ -31,7 +31,7 @@
                 <td>{{ $horas->tarea->cliente->name}}</td>
                 <td>{{ $horas->tarea->tarea}}</td>
                 <td>{{ $horas->observacion}}</td>
-                 
+                @if (auth()->user()->is_admin)
                 <td>
                     <div class="btn-group">
                         <div class="mr-1 ml-1">
@@ -39,6 +39,7 @@
                         </div>
                     </div>
                 </td>
+                @endif
             </tr>
       
             @empty
