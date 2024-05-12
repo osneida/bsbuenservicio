@@ -32,9 +32,7 @@ class ClienteController extends Controller
         request()->validate([
             'name' => 'required|string|min:3|max:255',
             'mail' => 'nullable|email|unique:clientes,mail,'.$cliente->id,
-            'cif'  =>  'nullable|unique:clientes,cif,'.$cliente->id,
-
-
+            'cif'  => 'nullable|unique:clientes,cif,'.$cliente->id,
         ]);
         
         $cliente->update($request->all());

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ClienteController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TareaController;
+use App\Http\Controllers\Admin\TareaGrupoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JornadaLaboralController;
@@ -54,6 +55,15 @@ Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth
 */
 Route::resource('tareas', TareaController::class)->middleware('can:administrador')->names('tareas');
 Route::get('tareas.mistareas/',[TareaController::class,'misTareas'])->middleware('auth')->name('tareas.mistareas');
+
+Route::get('tareasgrupo', [TareaGrupoController::class, 'index'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.index');
+Route::get('tareasgrupo/create',[TareaGrupoController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.create');
+//Route::get('tareasgrupo/{tarea}', [TareaGrupoController::class, 'show'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.show');
+Route::post('tareasgrupo', [TareaGrupoController::class, 'store'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.store');
+//Route::get('tareasgrupo/{id}/edit',[TareaGrupoController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.edit');
+//Route::put('tareasgrupo/{tarea}', [TareaGrupoController::class, 'update'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.update');
+//Route::delete('tareasgrupo/{tarea}', [TareaGrupoController::class, 'destroy'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.destroy');
+
 
 Route::middleware([
     'auth:sanctum',

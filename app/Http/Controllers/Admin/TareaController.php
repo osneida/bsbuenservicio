@@ -51,7 +51,6 @@ class TareaController extends Controller
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
-        //    Log::info('mensaje de llegada de tareas mis ',['data'=> $user]);
         $tareas = Tarea::with('cliente')->with('user')->where('user_id', $user->id)->get();
         return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin'));
     }

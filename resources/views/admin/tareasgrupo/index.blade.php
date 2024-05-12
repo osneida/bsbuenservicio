@@ -16,8 +16,7 @@
         </div>
         @endif
         @if($is_admin)
-        <a class="btn btn-primary btn-ms float-right mr-3" href="{{ route('tareas.create') }}">Nueva Tarea</a>
-        <a class="btn btn-primary btn-ms float-right mr-3" href="{{ route('tareasgrupo.create') }}">Nuevo Grupo de Tareas</a>
+        <a class="btn btn-primary btn-ms float-right" href="{{ route('tareasgrupo.create') }}">Nuevo Grupo de Tareas</a>
         @endif
     </div>
     <div class="card-body">
@@ -41,8 +40,9 @@
                 @else
                 <td>Sin Asignar </td>
                 @endif
+                
+                @if($is_admin)
                 <td>
-                    @if($is_admin)
                     <div class="btn-group">
                         <div class="mr-1 ml-1">
                             <a href="{{route('tareas.edit',$tarea)}}" title="Editar" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i></a>
@@ -55,8 +55,8 @@
                             </form>
                         </div>
                     </div>
-                    @endif
                 </td>
+                @endif
             </tr>
             @empty
             <tr>
