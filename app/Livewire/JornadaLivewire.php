@@ -79,7 +79,16 @@ class JornadaLivewire extends Component
         $data['fecha_inicio'] = date("y/m/d");
         $data['tarea_id']     = $tarea;
 
-        $jornada = JornadaLaboral::create($data);
+        //$jornada = JornadaLaboral::create($data);
+        $jornada = JornadaLaboral::updateOrCreate(['tarea_id' => $tarea],
+        [
+            'user_id'      => $this->user,
+            'fecha_inicio' => date("y/m/d"),
+            'hora_inicio'  => $this->hora_inicio,
+            'observacion'  => ''
+        ]); 
+
+
         $tarea = Tarea::find($tarea);
         $tarea->update(['estatus' => 'Iniciada']);
 

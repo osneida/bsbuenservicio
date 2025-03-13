@@ -66,24 +66,57 @@ class TareaController extends Controller
     public function store(TareaRequest $request)
     {
 
-        Log::info('mensaje de llegada de empleados ',['data'=>request()->all()]);
+        //Log::info('mensaje de llegada de empleados ',['data'=>request()->all()]);
 
         try {
             DB::beginTransaction();
             $data = $request->all();
+            $mensaje = '';
 
             if (array_key_exists('user_id', $data)) {
                 foreach ($data['user_id'] as $user) {
                     $data['user_id'] = $user;
-                    $tareas = Tarea::create($data);
+                    $existe = Tarea::where('tarea', $data['tarea'])
+                        ->where('fecha',      $data['fecha'])
+                        ->where('user_id',    $data['user_id'])
+                        ->where('cliente_id', $data['cliente_id'])
+                        ->exists();
+
+                       // Log::info('mensaje existe la tarea ',['data'=>$existe]);
+
+                    if($existe){
+                        $trabajador = User::findOrFail($user);
+                        $mensaje = $mensaje.' - Ya existe tarea: '.$data['tarea'].
+                                            ' creada para este cliente, asignada al trabajador: '.
+                                              $trabajador->name.'  en la fecha: '.$data['fecha']. ' === ';
+                       
+                    }    
+                    else{
+                        $mensaje = 'Tarea creada con éxito';
+                        $tareas = Tarea::create($data); 
+                    }  
                 }
             } else {
-                $tareas = Tarea::create($request->all());
+                $existe = Tarea::where('fecha', $data['fecha'])
+                ->where('tarea',    $data['tarea'])
+                ->where('cliente_id', $data['cliente_id'])
+                ->exists();
+
+                //Log::info('mensaje existe la tarea 22222222222',['data'=>$existe]);
+
+                if(!$existe){
+                    $mensaje = 'Tarea creada con éxito';
+                    $tareas = Tarea::create($request->all());
+                }    
+                else{
+                    $mensaje = 'Ya existe la tarea: '.$data['tarea'].' creada para este cliente en la fecha: '.$data['fecha'];
+                }
             }
 
             DB::commit();
-            return redirect()->route('tareas.index')->with('info', 'Tarea creada con éxito');
+            return redirect()->route('tareas.index')->with('info',  $mensaje);
         } catch (\Exception $exception) {
+            Log::info('Erorr',['data'=>$exception]);
             DB::rollback();
             return redirect()->route('tareas.index')->with('danger', 'La tarea NO se pudo crear');
         }

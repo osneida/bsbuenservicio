@@ -54,7 +54,7 @@
                     <div class="row text-center">
                         <div class="col-lg-4 col-4">
                             <h3> </h3>
-                            <p> Emleados Activos </p>
+                            <p> Empleados Activos </p>
                         </div>
                         <div class="col-lg-8 col-8 mt-2">
 

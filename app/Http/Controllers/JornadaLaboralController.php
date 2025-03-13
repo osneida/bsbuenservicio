@@ -118,12 +118,23 @@ class JornadaLaboralController extends Controller
         $hora_fin     = '';
 
         $user = auth()->user();
-        $request['user_id']      = $user->id;
-        $request['hora_inicio']  = $hora_inicio;
-        $request['fecha_inicio'] = $fecha_inicio;
-        $request['ubicacion'] = "Yagua";
+        
+        //$request['user_id']      = $user->id;
+        
+        //$request['hora_inicio']  = $hora_inicio;
+        //$request['fecha_inicio'] = $fecha_inicio;
+        //$request['ubicacion'] = "Yagua";
 
-        $jornada = JornadaLaboral::create($request->all());
+       // $jornada = JornadaLaboral::create($request->all());
+        $jornada = JornadaLaboral::updateOrCreate(['tarea_id' => $request['tarea_id']],
+        [
+            'user_id'      => $user->id,
+            'fecha_inicio' => $fecha_inicio,
+            'hora_inicio'  => $hora_inicio,
+            'fecha_fin'    => request('fecha_fin'),
+            'hora_fin'     => $hora_fin,
+            'observacion'  => request('observacion')
+        ]);
 
         $id = $jornada->id;
 

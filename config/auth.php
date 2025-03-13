@@ -110,6 +110,10 @@ return [
     |
     */
 
+    'remember' => [
+        'expire' => 2628000, // 5 años
+    ],
+    
     'password_timeout' => 10800,
 
 ];

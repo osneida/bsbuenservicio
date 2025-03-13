@@ -17,17 +17,17 @@ class UserRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'name'      => 'required|string|min:3|max:255',
+                    'name'      => 'required|min:3|max:255',
                     'email'     => 'required|string|email|min:8|max:30|unique:users',
                     'password'  => 'required|string|min:8|confirmed', //password_confirmation
-                    'rol'       => 'required|string|max:255',                   
+                    'rol'       => 'required|string|max:255',
                 ];
             case 'PUT':
             case 'PATCH':
                 return [
                     'name'      => 'required|string|min:3|max:255',
                     'password'  => 'required|string|min:8|confirmed', //password_confirmation
-                    'rol'       => 'required|string|max:255', 
+                    'rol'       => 'required|string|max:255',
                     'email' => [
                         'required',
                         'string',
