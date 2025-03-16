@@ -25,7 +25,7 @@ class TareaRequest extends FormRequest
         // para cambiar los mensajes
          return [
              'tarea.required'      => 'La tarea es requerida',
-             'tarea.min'           => 'Debe tener al menos 3 letras',
+             'tarea.min'           => 'Debe tener mínimo 3 letras',
              'tarea.max'           => 'No puede tener mas de 255 caracteres',
              'fecha.required'      => 'La fecha es requerida',
              'fecha.date'          => 'El formato de fecha debe ser AAAA/MM/DD',
