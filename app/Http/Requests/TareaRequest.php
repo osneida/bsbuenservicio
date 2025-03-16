@@ -17,7 +17,22 @@ class TareaRequest extends FormRequest
             'tarea'      => 'required|string|min:3|max:255',
             'fecha'      => 'required|date',
             'cliente_id' => 'required|exists:clientes,id',
-            'horas'      => 'required|numeric',
+            'horas'      => 'required|numeric|min:1|max:10',
         ];
     }
+
+    public function messages(){
+        // para cambiar los mensajes
+         return [
+             'tarea.required'      => 'La tarea es requerida',
+             'tarea.min'           => 'Debe tener almenos 3 letras',
+             'tarea.max'           => 'No puede tener mas de 255',
+             'fecha.required'      => 'La fecha es requerida',
+             'cliente_id.required' => 'El cliete es requerido',
+             'horas.required'      => 'La hora es requerida',
+             'horas.numeric'       => 'La hora debe ser un número positivo mayor a 0',
+             'horas.min'           => 'Debe ser mayor a 0',
+             'horas.max'           => 'Debe ser menor o igual a 10',
+         ];
+     }
 }

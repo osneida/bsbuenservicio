@@ -24,7 +24,7 @@
         <form method="POST" action="{{ route('tareas.store') }}">
             @csrf
             <div class="row">
-                <x-adminlte-input id="tarea" name="tarea" label="Tarea" error-key="tarea" placeholder="Descripción de la Tarea" fgroup-class="col-md-6" :value="old('tarea')" required autofocus autocomplete="tarea" />
+                <x-adminlte-input id="tarea" name="tarea" label="Tarea" error-key="tarea" placeholder="Descripción de la Tarea" fgroup-class="col-md-6" :value="old('tarea')"  autofocus autocomplete="tarea" />
             </div>
             <div class="row">
                 @php
@@ -32,12 +32,12 @@
                 'format' => 'YYYY-MM-DD',
                 'dayViewHeaderFormat' => 'MMM YYYY',
                 'minDate' => "js:moment().startOf('month')",
-               
-                
+
+
                 ];
                 @endphp
                 <!-- 'maxDate' => "js:moment().endOf('month')", 'daysOfWeekDisabled' => [0, 6], -->
-                <x-adminlte-input-date name="fecha" label="Fecha Realización" igroup-size="sm" :config="$config" placeholder="Fecha para la tarea...">
+                <x-adminlte-input-date name="fecha" :value="old('fecha')" label="Fecha Realización" igroup-size="sm" :config="$config" placeholder="Fecha para la tarea...">
                     <x-slot name="appendSlot">
                         <div class="input-group-text bg-dark">
                             <i class="fas fa-calendar-day"></i>
@@ -47,7 +47,7 @@
             </div>
             <div>
                <x-adminlte-input id="horas" name="horas" label="Horas" error-key="horas" placeholder="horas" fgroup-class="col-md-6" :value="old('horas')" />
-            
+
             </div>
             <div >
                 <x-adminlte-select2 name="cliente_id" label="Cliente">
