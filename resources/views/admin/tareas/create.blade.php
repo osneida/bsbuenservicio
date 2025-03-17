@@ -32,8 +32,6 @@
                 'format' => 'YYYY-MM-DD',
                 'dayViewHeaderFormat' => 'MMM YYYY',
                 'minDate' => "js:moment().startOf('month')",
-
-
                 ];
                 @endphp
                 <!-- 'maxDate' => "js:moment().endOf('month')", 'daysOfWeekDisabled' => [0, 6], -->
