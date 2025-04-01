@@ -30,7 +30,7 @@ class TareaController extends Controller
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
-        $tareas = Tarea::with('cliente')->with('user')->get();
+        $tareas = Tarea::with('cliente')->with('user')->Orderby('id','desc')->get();
         return view('admin.tareas.index', compact('heads', 'tareas','is_admin'));
     }
 
@@ -89,12 +89,12 @@ class TareaController extends Controller
                         $mensaje = $mensaje.' - Ya existe tarea: '.$data['tarea'].
                                             ' creada para este cliente, asignada al trabajador: '.
                                               $trabajador->name.'  en la fecha: '.$data['fecha']. ' === ';
-                       
-                    }    
+
+                    }
                     else{
                         $mensaje = 'Tarea creada con éxito';
-                        $tareas = Tarea::create($data); 
-                    }  
+                        $tareas = Tarea::create($data);
+                    }
                 }
             } else {
                 $existe = Tarea::where('fecha', $data['fecha'])
@@ -107,7 +107,7 @@ class TareaController extends Controller
                 if(!$existe){
                     $mensaje = 'Tarea creada con éxito';
                     $tareas = Tarea::create($request->all());
-                }    
+                }
                 else{
                     $mensaje = 'Ya existe la tarea: '.$data['tarea'].' creada para este cliente en la fecha: '.$data['fecha'];
                 }
