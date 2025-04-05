@@ -25,7 +25,7 @@
                 @csrf
                 <div class="row">
                     <label>Tarea</label>
-                    <textarea class="form-control" id="tarea" name="tarea" rows="2" placeholder="Descripción de la Tarea ..."
+                    <textarea autofocus class="form-control" id="tarea" name="tarea" rows="2" placeholder="Descripción de la Tarea ..."
                         maxlength="255">{{ old('tarea') }}</textarea>
 
                     @error('tarea')

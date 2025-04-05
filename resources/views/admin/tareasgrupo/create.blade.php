@@ -24,7 +24,14 @@
         <form method="POST" action="{{ route('tareasgrupo.store') }}">
             @csrf
             <div class="row">
-                <x-adminlte-input id="tarea" name="tarea" label="Tarea" error-key="tarea" placeholder="Descripción de la Tarea" fgroup-class="col-md-6" :value="old('tarea')" required autofocus autocomplete="tarea" />
+            <label>Tarea</label>
+                    <textarea autofocus class="form-control" id="tarea" name="tarea" rows="2" placeholder="Descripción de la Tarea ..."
+                        maxlength="255">{{ old('tarea') }}</textarea>
+
+                    @error('tarea')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
             </div>
 
             <div>
@@ -78,7 +85,12 @@
                 </x-adminlte-input-date>
             </div>
             <div class="row">
-                <x-adminlte-input id="horas" name="horas" label="Horas" error-key="horas" placeholder="horas" fgroup-class="col-md-6" required :value="old('horas')" />
+            <label>Horas</label>
+                    <input type="number" id="horas" name="horas" error-key="horas" value="{{ old('horas',1) }}" min="1" max="10" class="form-control">
+                     @error('horas')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
 
             </div>
             <div>

@@ -30,8 +30,8 @@ class TareaController extends Controller
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
-        $tareas = Tarea::with('cliente')->with('user')->Orderby('id','desc')->get();
-        return view('admin.tareas.index', compact('heads', 'tareas','is_admin'));
+        $tareas = Tarea::with('cliente')->with('user')->Orderby('id', 'desc')->get();
+        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin'));
     }
 
     public function misTareas(): View
@@ -82,41 +82,38 @@ class TareaController extends Controller
                         ->where('cliente_id', $data['cliente_id'])
                         ->exists();
 
-                       // Log::info('mensaje existe la tarea ',['data'=>$existe]);
+                    // Log::info('mensaje existe la tarea ',['data'=>$existe]);
 
-                    if($existe){
+                    if ($existe) {
                         $trabajador = User::findOrFail($user);
-                        $mensaje = $mensaje.' - Ya existe tarea: '.$data['tarea'].
-                                            ' creada para este cliente, asignada al trabajador: '.
-                                              $trabajador->name.'  en la fecha: '.$data['fecha']. ' === ';
-
-                    }
-                    else{
+                        $mensaje = $mensaje . ' - Ya existe tarea: ' . $data['tarea'] .
+                            ' creada para este cliente, asignada al trabajador: ' .
+                            $trabajador->name . '  en la fecha: ' . $data['fecha'] . ' === ';
+                    } else {
                         $mensaje = 'Tarea creada con éxito';
                         $tareas = Tarea::create($data);
                     }
                 }
             } else {
                 $existe = Tarea::where('fecha', $data['fecha'])
-                ->where('tarea',    $data['tarea'])
-                ->where('cliente_id', $data['cliente_id'])
-                ->exists();
+                    ->where('tarea',    $data['tarea'])
+                    ->where('cliente_id', $data['cliente_id'])
+                    ->exists();
 
                 //Log::info('mensaje existe la tarea 22222222222',['data'=>$existe]);
 
-                if(!$existe){
+                if (!$existe) {
                     $mensaje = 'Tarea creada con éxito';
                     $tareas = Tarea::create($request->all());
-                }
-                else{
-                    $mensaje = 'Ya existe la tarea: '.$data['tarea'].' creada para este cliente en la fecha: '.$data['fecha'];
+                } else {
+                    $mensaje = 'Ya existe la tarea: ' . $data['tarea'] . ' creada para este cliente en la fecha: ' . $data['fecha'];
                 }
             }
 
             DB::commit();
             return redirect()->route('tareas.index')->with('info',  $mensaje);
         } catch (\Exception $exception) {
-            Log::info('Erorr',['data'=>$exception]);
+            Log::info('Erorr', ['data' => $exception]);
             DB::rollback();
             return redirect()->route('tareas.index')->with('danger', 'La tarea NO se pudo crear');
         }
@@ -146,7 +143,13 @@ class TareaController extends Controller
 
     public function destroy(Tarea $tarea): RedirectResponse
     {
+        // Verificar si la tarea tiene registros en la tabla jornada_laboral
+        if ($tarea->jornada()->exists()) {
+            return redirect()->route('tareas.index')->with('danger', 'No se puede borrar la tarea porque ya tiene una jornada creada.');
+        }
+
+        // Si no tiene registros, proceder a eliminar
         $tarea->delete();
-        return redirect()->route('tareas.index')->with('danger', 'La tarea se eliminó con éxito');
+        return redirect()->route('tareas.index')->with('info', 'La tarea se eliminó con éxito');
     }
 }

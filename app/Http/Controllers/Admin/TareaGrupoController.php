@@ -27,8 +27,8 @@ class TareaGrupoController extends Controller
             'Cliente',
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
-
-        $tareas = Tarea::with('cliente')->with('user')->get();
+        $tareas = Tarea::with('cliente')->with('user')->Orderby('id','desc')->get();
+        //$tareas = Tarea::with('cliente')->with('user')->get();
         return view('admin.tareas.index', compact('heads', 'tareas','is_admin'));
 
     }
@@ -85,12 +85,12 @@ class TareaGrupoController extends Controller
 
         $startDate = Carbon::parse($fecha_inicio);
         $endDate   = Carbon::parse($fecha_fin);
-    
+
         // Ajustar `$startDate` al primer día de la semana `$dia` después de `$fecha_inicio`
         while ($startDate->format('l') !== ucfirst(strtolower($dia))) {
             $startDate->addDay(); // Avanzar un día hasta que coincida con `$dia`
         }
-    
+
         // Mientras `$startDate` sea menor o igual que `$fecha_fin`
         while ($startDate->lte($endDate)) {
             if ($startDate->format('l') === ucfirst(strtolower($dia))) {
