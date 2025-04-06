@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TareaRequest;
+use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Tarea;
 use App\Models\User;
@@ -15,9 +16,10 @@ use Illuminate\Support\Facades\Log;
 
 class TareaController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $user = auth()->user();
+        $estatus = $request->get('estatus', 'pendiente');
         $is_admin = $user->is_admin;
         $heads = [
             '#',
@@ -30,8 +32,12 @@ class TareaController extends Controller
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
-        $tareas = Tarea::with('cliente')->with('user')->Orderby('id', 'desc')->get();
-        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin'));
+        $tareas = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
+                        ->with('cliente:id,name')
+                        ->with('user:id,name')
+                        ->where('estatus', $estatus)
+                        ->Orderby('id', 'desc')->get();
+        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin','estatus'));
     }
 
     public function misTareas(): View

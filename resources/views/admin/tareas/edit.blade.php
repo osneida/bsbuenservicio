@@ -63,8 +63,10 @@
                 <div>
                     <x-adminlte-select2 name="cliente_id" label="Cliente">
                         @forelse($clientes as $cliente)
-                            <option value={{ $cliente->id }} @if ($cliente->id == $tarea->cliente_id) selected @endif>
-                                {{ $cliente->name }}</option>
+                            <option value="{{ $cliente->id }}"
+                                {{ old('cliente_id', $tarea->cliente_id) == $cliente->id ? 'selected' : '' }}>
+                                {{ $cliente->name }}
+                            </option>
                         @empty
                             <option value=0>Sin Clientes</option>
                         @endforelse
@@ -75,8 +77,10 @@
                     <x-adminlte-select2 name="user_id" label="Empleados">
                         <option value=0>Seleccione un Empleado</option>
                         @forelse($empleados as $empleado)
-                            <option value={{ $empleado->id }} @if ($empleado->id == $tarea->user_id) selected @endif>
-                                {{ $empleado->name }}</option>
+                            <option value="{{ $empleado->id }}"
+                                {{ old('user_id', $tarea->user_id) == $empleado->id ? 'selected' : '' }}>
+                                {{ $empleado->name }}
+                            </option>
                         @empty
                             <option value=0>Sin Empleados</option>
                         @endforelse

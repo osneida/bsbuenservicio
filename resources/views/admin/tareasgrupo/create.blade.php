@@ -129,7 +129,7 @@
 
             <div class="row">
                 <x-adminlte-button class="btn-flat mr-3" type="submit" label="Guardar" theme="primary" icon="fas fa-lg fa-save" />
-                <a href="{{ route('tareasgrupo.index') }} "> <x-adminlte-button class="btn-flat" type="button" label="Volver" theme="success" icon="fas fa-tasks" /> </a>
+                <a href="{{ route('tareas.index') }} "> <x-adminlte-button class="btn-flat" type="button" label="Volver" theme="success" icon="fas fa-tasks" /> </a>
             </div>
         </form>
     </div>

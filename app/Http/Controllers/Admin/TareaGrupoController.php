@@ -27,7 +27,7 @@ class TareaGrupoController extends Controller
             'Cliente',
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
-        $tareas = Tarea::with('cliente')->with('user')->Orderby('id','desc')->get();
+        $tareas = Tarea::with('cliente:id,name')->with('user:id,name')->Orderby('id', 'desc')->get();
         //$tareas = Tarea::with('cliente')->with('user')->get();
         return view('admin.tareas.index', compact('heads', 'tareas','is_admin'));
 
@@ -75,7 +75,7 @@ class TareaGrupoController extends Controller
             }
         }
 
-        return redirect()->route('tareasgrupo.index')->with('info', 'Tareas creadas con éxito');
+        return redirect()->route('tareas.index')->with('info', 'Tareas creadas con éxito');
     }
 
     function obtenerFechasDiasSemana($fecha_inicio, $fecha_fin, $dia)

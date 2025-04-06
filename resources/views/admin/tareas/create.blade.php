@@ -25,8 +25,8 @@
                 @csrf
                 <div class="row">
                     <label>Tarea</label>
-                    <textarea autofocus class="form-control" id="tarea" name="tarea" rows="2" placeholder="Descripción de la Tarea ..."
-                        maxlength="255">{{ old('tarea') }}</textarea>
+                    <textarea autofocus class="form-control" id="tarea" name="tarea" rows="2"
+                        placeholder="Descripción de la Tarea ..." maxlength="255">{{ old('tarea') }}</textarea>
 
                     @error('tarea')
                         <div class="text-danger">{{ $message }}</div>
@@ -52,15 +52,18 @@
                 </div>
                 <div class="row">
                     <label>Horas</label>
-                    <input type="number" id="horas" name="horas" error-key="horas" value="{{ old('horas',1) }}" min="1" max="10" class="form-control">
-                     @error('horas')
+                    <input type="number" id="horas" name="horas" error-key="horas" value="{{ old('horas', 1) }}"
+                        min="1" max="10" class="form-control">
+                    @error('horas')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                 <div class="row">
-                    <x-adminlte-select2 name="cliente_id" label="Cliente" fgroup-class="col-md-10" >
+                <div class="row">
+                    <x-adminlte-select2 name="cliente_id" label="Cliente" fgroup-class="col-md-10">
                         @forelse($clientes as $cliente)
-                            <option value={{ $cliente->id }}>{{ $cliente->name }}</option>
+                            <option value="{{ $cliente->id }}" {{ old('cliente_id') == $cliente->id ? 'selected' : '' }}>
+                                {{ $cliente->name }}
+                            </option>
                         @empty
                             <option value=0>Sin Clientes</option>
                         @endforelse
@@ -74,8 +77,8 @@
                             'allowClear' => true,
                         ];
                     @endphp
-                    <x-adminlte-select2 fgroup-class="col-md-10" id="user_id" name="user_id[]" label="Empleados" label-class="text-danger"
-                        igroup-size="sm" :config="$config" multiple>
+                    <x-adminlte-select2 fgroup-class="col-md-10" id="user_id" name="user_id[]" label="Empleados"
+                        label-class="text-danger" igroup-size="sm" :config="$config" multiple>
                         <x-slot name="prependSlot">
                             <div class="input-group-text bg-gradient-red">
                                 <i class="fas fa-tag"></i>
@@ -85,7 +88,10 @@
                             <x-adminlte-button theme="outline-dark" label="Clear" icon="fas fa-lg fa-ban text-danger" />
                         </x-slot>
                         @forelse($empleados as $empleado)
-                            <option value="{{ $empleado->id }}">{{ $empleado->name }}</option>
+                            <option value="{{ $empleado->id }}"
+                                {{ is_array(old('user_id')) && in_array($empleado->id, old('user_id')) ? 'selected' : '' }}>
+                                {{ $empleado->name }}
+                            </option>
                         @empty
                             <option value=0>Sin Empleados</option>
                         @endforelse
