@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tarea;
 use App\Models\User;
@@ -20,16 +21,15 @@ class JornadaLaboral extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tarea(): BelongsTo
+    public function tarea(): hasOne
     {
-        return $this->belongsTo(Tarea::class);
+        return $this->hasOne(Tarea::class);
     }
 
     public function jornada_user($user_id){
         return $this::where('user_id', $user_id)
          ->orderByDesc('fecha_inicio', 'hora_inicio')
          ->get();
-
     }
 
     public function jornada_actual($user_id, $fecha_inicio){
@@ -49,5 +49,5 @@ class JornadaLaboral extends Model
         return $total_horas[0]['tiempo_transcurrido'];
     }
 
-    
+
 }

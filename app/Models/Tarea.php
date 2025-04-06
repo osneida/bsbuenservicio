@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\JornadaLaboral;
 use App\Models\Cliente;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tarea extends Model
 {
@@ -27,8 +28,17 @@ class Tarea extends Model
         return $this->belongsTo(Cliente::class);
     }
 
-    public function jornada(): HasMany
+    public function jornada(): HasOne
     {
-        return $this->hasMany(JornadaLaboral::class);
+        return $this->hasOne(JornadaLaboral::class);
     }
+
+    public function jornada_sintarea()
+{
+    return $this->hasOne(JornadaLaboral::class, 'tarea_id')->withDefault([
+        'hora_inicio' => null,
+        'hora_fin' => null,
+        'tarea_id' => null,
+    ]);
+}
 }

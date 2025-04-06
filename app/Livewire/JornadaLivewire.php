@@ -23,8 +23,6 @@ class JornadaLivewire extends Component
         $this->hora_inicio = '';
         $this->hora_fin    = '';
         $this->id = '';
-        //   $this->enable_inicio = 'enabled';
-        //   $this->enable_fin    = 'disabled';
 
         // Inicializa los arrays con las horas de inicio y fin vacías para cada tarea
         $this->horas_inicio = array_fill(0, $this->tarea_hoy_count, '');
@@ -33,33 +31,30 @@ class JornadaLivewire extends Component
         $this->enables_inicio = array_fill(0, $this->tarea_hoy_count, 'enabled');
         $this->enables_fin = array_fill(0, $this->tarea_hoy_count, 'disabled');
 
-
-
         $users = auth()->user();
         $this->user = $users->id;
         date_default_timezone_set("Europe/Madrid");
         $hoy = date("y/m/d");
 
-        //  ->orderByDesc('id')
-        //  ->take(1)
-        $JornadaLaboral = $this->jornada = JornadaLaboral::select('id', 'hora_inicio', 'hora_fin', 'tarea_id')
+        $JornadaLaboral = Tarea::select('id')->with('jornada_sintarea:hora_inicio,hora_fin,tarea_id')
             ->where('user_id', $this->user)
-            ->where('fecha_inicio', $hoy)
+            ->where('fecha', $hoy)
             ->get();
 
-        $jl =  $JornadaLaboral->toArray();
+        foreach ($JornadaLaboral as $tarea) {
+            if (is_null($tarea->jornada_sintarea->tarea_id)) {
+                $this->enables_inicio[$tarea['id']] = 'enabled';
+                $this->enables_fin[$tarea['id']] = 'disabled';
+            }else{
+                $this->horas_inicio[$tarea['id']] = $tarea->jornada_sintarea->hora_inicio;
+                $this->horas_fin[$tarea['id']] = $tarea->jornada_sintarea->hora_fin;
 
-        if (isset($jl[0])) {
-            foreach ($jl as $j) {
-                $this->horas_inicio[$j['tarea_id']] = $j['hora_inicio'];
-                $this->horas_fin[$j['tarea_id']] = $j['hora_fin'];
-
-                if ($j['hora_fin'] == null) {
-                    $this->enables_inicio[$j['tarea_id']] = 'disabled';
-                    $this->enables_fin[$j['tarea_id']] = 'enabled';
+                if ($tarea->jornada_sintarea->hora_fin == null) {
+                    $this->enables_inicio[$tarea['id']] = 'disabled';
+                    $this->enables_fin[$tarea['id']] = 'enabled';
                 } else {
-                    $this->enables_inicio[$j['tarea_id']] = 'disabled';
-                    $this->enables_fin[$j['tarea_id']] = 'disabled';
+                    $this->enables_inicio[$tarea['id']] = 'disabled';
+                    $this->enables_fin[$tarea['id']] = 'disabled';
                 }
             }
         }
@@ -80,13 +75,15 @@ class JornadaLivewire extends Component
         $data['tarea_id']     = $tarea;
 
         //$jornada = JornadaLaboral::create($data);
-        $jornada = JornadaLaboral::updateOrCreate(['tarea_id' => $tarea],
-        [
-            'user_id'      => $this->user,
-            'fecha_inicio' => date("y/m/d"),
-            'hora_inicio'  => $this->hora_inicio,
-            'observacion'  => ''
-        ]); 
+        $jornada = JornadaLaboral::updateOrCreate(
+            ['tarea_id' => $tarea],
+            [
+                'user_id'      => $this->user,
+                'fecha_inicio' => date("y/m/d"),
+                'hora_inicio'  => $this->hora_inicio,
+                'observacion'  => ''
+            ]
+        );
 
 
         $tarea = Tarea::find($tarea);
