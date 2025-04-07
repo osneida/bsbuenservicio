@@ -21,9 +21,9 @@ class JornadaLaboral extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tarea(): hasOne
+    public function tarea(): BelongsTo
     {
-        return $this->hasOne(Tarea::class);
+        return $this->belongsTo(Tarea::class);
     }
 
     public function jornada_user($user_id){

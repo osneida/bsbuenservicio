@@ -16,23 +16,23 @@
                 </div>
             @endif
             @if ($is_admin)
+                <a class="btn btn-primary btn-ms float-right mr-3 mb-2" href="{{ route('tareas.create') }}">Nueva Tarea</a>
+                <a class="btn btn-primary btn-ms float-right mr-3 mb-2" href="{{ route('tareasgrupo.create') }}">Nuevo Grupo de
+                    Tareas</a>
+
                 <!-- Filtro de estatus -->
-                <form method="GET" action="{{ route('tareas.index') }}" class="form-inline mb-3" id="filterForm">
+                <form class="float-right mr-3" method="GET" action="{{ route('tareas.index') }}" class="form-inline mb-2"
+                    id="filterForm">
                     <label for="estatus" class="mr-2">Filtrar por estatus:</label>
-                    <select name="estatus" id="estatus" class="form-control mr-2"
-                        onchange="document.getElementById('filterForm').submit();">
+                    <select name="estatus" id="estatus" onchange="document.getElementById('filterForm').submit();">
                         <option value="pendiente" {{ $estatus == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
                         <option value="iniciada" {{ $estatus == 'iniciada' ? 'selected' : '' }}>Iniciada</option>
                         <option value="finalizada" {{ $estatus == 'finalizada' ? 'selected' : '' }}>Finalizada</option>
-                        <option value="" {{ $estatus == '' ? 'selected' : '' }}>Todas</option>
+                        <option value="todas" {{ $estatus == 'todas' ? 'selected' : '' }}>Todas</option>
                     </select>
                 </form>
 
                 </form>
-                <a class="btn btn-primary btn-ms float-right mr-3" href="{{ route('tareas.create') }}">Nueva Tarea</a>
-                <a class="btn btn-primary btn-ms float-right mr-3" href="{{ route('tareasgrupo.create') }}">Nuevo Grupo
-                    de
-                    Tareas</a>
             @endif
 
             <div class="card-body">

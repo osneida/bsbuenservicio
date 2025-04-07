@@ -32,12 +32,23 @@ class TareaController extends Controller
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
-        $tareas = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
-                        ->with('cliente:id,name')
-                        ->with('user:id,name')
-                        ->where('estatus', $estatus)
-                        ->Orderby('id', 'desc')->get();
-        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin','estatus'));
+        $tareasQuery = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
+            ->with('cliente:id,name')
+            ->with('user:id,name');
+
+        if ($estatus !== 'todas') {
+            $tareasQuery->where('estatus', $estatus);
+        }
+
+        $tareas = $tareasQuery->orderBy('id', 'desc')->get();
+
+       /* $tareas = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
+            ->with('cliente:id,name')
+            ->with('user:id,name')
+            ->where('estatus', $estatus)
+            ->Orderby('id', 'desc')->get();*/
+
+        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin', 'estatus'));
     }
 
     public function misTareas(): View
@@ -45,7 +56,7 @@ class TareaController extends Controller
 
         $user = auth()->user();
         $is_admin = $user->is_admin;
-
+        $estatus = "";
         $heads = [
             '#',
             'Tarea',
@@ -58,7 +69,7 @@ class TareaController extends Controller
         ];
 
         $tareas = Tarea::with('cliente')->with('user')->where('user_id', $user->id)->get();
-        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin'));
+        return view('admin.tareas.index', compact('heads', 'tareas', 'is_admin', 'estatus'));
     }
 
     public function create(): view

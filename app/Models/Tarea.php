@@ -15,7 +15,7 @@ class Tarea extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tarea', 'estatus', 'fecha', 'user_id', 'cliente_id','horas'];
+    protected $fillable = ['tarea', 'estatus', 'fecha', 'user_id', 'cliente_id', 'horas'];
 
 
     public function user(): BelongsTo
@@ -34,11 +34,11 @@ class Tarea extends Model
     }
 
     public function jornada_sintarea()
-{
-    return $this->hasOne(JornadaLaboral::class, 'tarea_id')->withDefault([
-        'hora_inicio' => null,
-        'hora_fin' => null,
-        'tarea_id' => null,
-    ]);
-}
+    {
+        return $this->hasOne(JornadaLaboral::class, 'tarea_id')->withDefault([
+            'hora_inicio' => null,
+            'hora_fin' => null,
+            'tarea_id' => null,
+        ]);
+    }
 }
