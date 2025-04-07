@@ -12,12 +12,19 @@ class ClienteLivewire extends Component
     public function status(Cliente $cliente)
     {
         $cliente->update(['estatus' => !$cliente->estatus]);
-        session()->flash('info','Cliente Modificada correctamente');
-
+        session()->flash('info', 'Cliente Modificada correctamente');
     }
-    public function delete(Cliente $cliente){
-        $cliente->delete();
-        session()->flash('danger','Cliente eliminada correctamente');
+    public function delete(Cliente $cliente)
+    {
+
+        // Verificar si la tarea tiene registros en la tabla tareas
+        if ($cliente->tareas()->exists()) {
+            session()->flash('danger', 'Cliente No se puede eliminar porque tiene tareas asignadas.');
+        }else{
+            // Si no tiene registros, proceder a eliminar
+            $cliente->delete();
+            session()->flash('info', 'Cliente eliminado correctamente');
+        }
     }
 
     protected $queryString = [
@@ -26,14 +33,12 @@ class ClienteLivewire extends Component
 
     public function render()
     {
-        $this->clientes = Cliente::orWhere('name', 'LIKE', '%'.$this->search.'%')
-                                   ->orWhere('address', 'LIKE', '%'.$this->search.'%')
-                                   ->orWhere('cif', 'LIKE', '%'.$this->search.'%')
-                                   ->orWhere('mail', 'LIKE', '%'.$this->search.'%')
-                                   ->orWhere('phone', 'LIKE', '%'.$this->search.'%')
-                                   ->OrderByDesc('estatus')->OrderBy('name')->get();
+        $this->clientes = Cliente::orWhere('name', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('address', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('cif', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('mail', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('phone', 'LIKE', '%' . $this->search . '%')
+            ->OrderByDesc('estatus')->OrderBy('name')->get();
         return view('livewire.cliente-livewire');
     }
-
 }
-
