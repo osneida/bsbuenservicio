@@ -40,7 +40,7 @@ Route::get('/clientes', function () {
 Route::get('clientes/create',[ClienteController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('clientes.create');
 Route::post('clientes',[ClienteController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('clientes.store');
 Route::get('clientes/{id}/edit',[ClienteController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('clientes.edit');
-Route::put('clientes/{cliente}',[ClienteController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('clientes.update'); 
+Route::put('clientes/{cliente}',[ClienteController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('clientes.update');
 
 //tareas
 /*
@@ -51,10 +51,11 @@ Route::get('/tareas', function () {
 Route::get('tareas/create',[TareaController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('tareas.create');
 Route::post('tareas',[TareaController::class,'store'])->middleware('auth')->middleware('can:administrador')->name('tareas.store');
 Route::get('tareas/{id}/edit',[TareaController::class,'edit'])->middleware('auth')->middleware('can:administrador')->name('tareas.edit');
-Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('tareas.update'); 
+Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth')->middleware('can:administrador')->name('tareas.update');
 */
 Route::resource('tareas', TareaController::class)->middleware('can:administrador')->names('tareas');
 Route::get('tareas.mistareas/',[TareaController::class,'misTareas'])->middleware('auth')->name('tareas.mistareas');
+Route::get('tareas.indexhtml/',[TareaController::class,'indexhtml'])->middleware('auth')->middleware('can:administrador')->name('tareas.indexhtml');
 
 Route::get('tareasgrupo', [TareaGrupoController::class, 'index'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.index');
 Route::get('tareasgrupo/create',[TareaGrupoController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.create');

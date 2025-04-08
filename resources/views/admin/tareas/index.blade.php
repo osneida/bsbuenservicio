@@ -32,7 +32,6 @@
                     </select>
                 </form>
 
-                </form>
             @endif
 
             <div class="card-body">

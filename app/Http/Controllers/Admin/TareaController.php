@@ -42,7 +42,7 @@ class TareaController extends Controller
 
         $tareas = $tareasQuery->orderBy('id', 'desc')->get();
 
-       /* $tareas = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
+        /* $tareas = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
             ->with('cliente:id,name')
             ->with('user:id,name')
             ->where('estatus', $estatus)
@@ -168,5 +168,40 @@ class TareaController extends Controller
         // Si no tiene registros, proceder a eliminar
         $tarea->delete();
         return redirect()->route('tareas.index')->with('info', 'La tarea se eliminó con éxito');
+    }
+
+    public function indexhtml(Request $request): View
+    {
+        $user = auth()->user();
+        $perPage   = $request->get('perPage', 10); // Valor por defecto: 10
+        $estatus   = $request->get('estatus',  'todas');
+        $empleado  = $request->get('empleado', 'todas');
+        $cliente   = $request->get('cliente',  'todas');
+        $empleados = User::select('id', 'name')->orderBy('name')->get();
+        $clientes  = Cliente::select('id', 'name')->where('estatus', 1)->orderBy('name')->get();
+        $is_admin  = $user->is_admin;
+
+        $tareasQuery = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
+            ->with('cliente:id,name')
+            ->with('user:id,name');
+
+        if ($estatus !== 'todas') {
+            $tareasQuery->where('estatus', $estatus);
+        }
+
+        if ($empleado !== 'todas') {
+            $tareasQuery->where('user_id', $empleado);
+        }
+
+        if ($cliente !== 'todas') {
+            $tareasQuery->where('cliente_id', $cliente);
+        }
+
+        $tareas = $tareasQuery->orderBy('id', 'desc')->paginate($perPage);
+
+        //$tareas = $tareasQuery->orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.tareas.indexhtml', compact('tareas', 'is_admin', 'estatus','empleado','empleados','clientes', 'cliente', 'perPage'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 }

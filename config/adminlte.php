@@ -211,7 +211,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => true, //el menú lateral izquierdo se muestra colapsado 
+    'sidebar_collapse' => true, //el menú lateral izquierdo se muestra colapsado
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -329,13 +329,19 @@ return [
         ],
         [
             'text' => 'Clientes',
-            'route'=> 'clientes',   
+            'route'=> 'clientes',
             'icon' => 'fas fa-walking',
             'can'  => 'administrador',
         ],
         [
             'text' => 'Tareas',
-            'route'=> 'tareas.index',   
+            'route'=> 'tareas.index',
+            'icon' => 'fas fa-tasks',
+            'can'  => 'administrador',
+        ],
+        [
+            'text' => 'Tareas (Nuevo)',
+            'route'=> 'tareas.indexhtml',
             'icon' => 'fas fa-tasks',
             'can'  => 'administrador',
         ],
@@ -363,7 +369,7 @@ return [
             'icon' => 'fas fa-hourglass-half',
         ],
 
-        
+
 
     ],
 
