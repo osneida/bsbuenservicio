@@ -56,6 +56,7 @@ Route::put('tareas/{tarea}',[TareaController::class,'update'])->middleware('auth
 Route::resource('tareas', TareaController::class)->middleware('can:administrador')->names('tareas');
 Route::get('tareas.mistareas/',[TareaController::class,'misTareas'])->middleware('auth')->name('tareas.mistareas');
 Route::get('tareas.indexhtml/',[TareaController::class,'indexhtml'])->middleware('auth')->middleware('can:administrador')->name('tareas.indexhtml');
+//Route::get('/tareas', [TareaController::class, 'indexhtml'])->middleware('can:administrador')->name('tareas.indexhtml');
 
 Route::get('tareasgrupo', [TareaGrupoController::class, 'index'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.index');
 Route::get('tareasgrupo/create',[TareaGrupoController::class,'create'])->middleware('auth')->middleware('can:administrador')->name('tareasgrupo.create');
