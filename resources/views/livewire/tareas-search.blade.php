@@ -13,6 +13,7 @@
     <div class="form-group d-flex align-items-center">
         <input type="search" class="form-control mr-3" wire:model.live="search" placeholder="buscar ..."
             style="flex-grow: 1;">
+        <button wire:click="exportExcel" class="btn btn-success mr-2">Exportar a Excel</button>
         <a class="btn btn-primary btn-ms mr-2" href="{{ route('tareasgrupo.create') }}">Nuevo Grupo de Tareas</a>
         <a class="btn btn-primary btn-ms" href="{{ route('tareas.create') }}">Nueva Tarea</a>
 
@@ -84,13 +85,13 @@
                     </a></th>
                 <th style="width: 15%;"><a href="#" wire:click.prevent="sortBy('user_id')">
                         Empleado
-                        @if ($sortField === 'user_id')
+                        @if ($sortField === 'user_name')
                             <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
                         @endif
                     </a></th>
                 <th style="width: 15%;"> <a href="#" wire:click.prevent="sortBy('cliente_id')">
                         Cliente
-                        @if ($sortField === 'cliente_id')
+                        @if ($sortField === 'cliente_name')
                             <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
                         @endif
                     </a></th>

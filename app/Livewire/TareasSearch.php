@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TareasExport;
 use App\Models\Tarea;
 use App\Models\Cliente;
 use App\Models\User;
@@ -21,10 +23,15 @@ class TareasSearch extends Component
     public $sortField = 'id'; // Campo por defecto para ordenar
     public $sortDirection = 'desc'; // Dirección por defecto
 
-    protected $queryString = ['search',
-    'estatus', 'empleado', 'cliente',
-    'perPage', 'sortField',
-    'sortDirection'];
+    protected $queryString = [
+        'search',
+        'estatus',
+        'empleado',
+        'cliente',
+        'perPage',
+        'sortField',
+        'sortDirection'
+    ];
 
     public function sortBy($field)
     {
@@ -120,15 +127,24 @@ class TareasSearch extends Component
         // $query->orderByDesc('id');
         // Aplicar ordenación
         $query->orderBy($this->sortField, $this->sortDirection);
+        $this->queryExport =  $query;
 
         $tareas = $query->paginate($this->perPage);
         $empleados = User::select('id', 'name')->orderBy('name')->get();
         $clientes  = Cliente::select('id', 'name')->where('estatus', 1)->orderBy('name')->get();
 
-       // Log::info($query->toSql());
-       // Log::info($query->getBindings());
+        // Log::info($query->toSql());
+        // Log::info($query->getBindings());
 
 
         return view('livewire.tareas-search', compact('tareas', 'empleados', 'clientes', 'is_admin'));
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new TareasExport($this->estatus, $this->empleado, $this->cliente, $this->search),
+            'tareas.xlsx'
+        );
     }
 }
