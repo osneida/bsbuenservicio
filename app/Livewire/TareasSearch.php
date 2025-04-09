@@ -127,7 +127,6 @@ class TareasSearch extends Component
         // $query->orderByDesc('id');
         // Aplicar ordenación
         $query->orderBy($this->sortField, $this->sortDirection);
-        $this->queryExport =  $query;
 
         $tareas = $query->paginate($this->perPage);
         $empleados = User::select('id', 'name')->orderBy('name')->get();
