@@ -83,7 +83,7 @@ class TareasSearch extends Component
 
 
         if ($this->estatus !== 'todas') {
-            $query->where('estatus', $this->estatus);
+            $query->where('tareas.estatus', $this->estatus);
         }
 
         if ($this->empleado !== 'todas') {
