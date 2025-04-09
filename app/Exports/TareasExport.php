@@ -28,8 +28,10 @@ class TareasExport implements FromCollection, WithHeadings
             'Estatus',
             'Fecha',
             'Horas',
-            'Empleado',
-            'Cliente',
+            'Empleado_id',
+            'Cliente_id',
+            'Nombre Cliente',
+            'Nombre Empleado',
         ];
     }
 }
