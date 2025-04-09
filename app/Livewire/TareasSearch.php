@@ -22,6 +22,7 @@ class TareasSearch extends Component
     public $perPage = 10;
     public $sortField = 'id'; // Campo por defecto para ordenar
     public $sortDirection = 'desc'; // Dirección por defecto
+    public $queryExport;
 
     protected $queryString = [
         'search',
@@ -86,10 +87,8 @@ class TareasSearch extends Component
         $this->resetPage();
     }
 
-    public function render()
+    private function buildQuery()
     {
-        $user = auth()->user();
-        $is_admin = $user->is_admin;
 
         $query = Tarea::select('tareas.id', 'tareas.tarea', 'tareas.estatus', 'tareas.fecha', 'tareas.horas', 'tareas.user_id', 'tareas.cliente_id')
             ->join('clientes', 'tareas.cliente_id', '=', 'clientes.id') // Unir con la tabla clientes
@@ -124,9 +123,18 @@ class TareasSearch extends Component
             });
         }
 
-        // $query->orderByDesc('id');
         // Aplicar ordenación
         $query->orderBy($this->sortField, $this->sortDirection);
+        return $query;
+    }
+
+
+    public function render()
+    {
+        $user = auth()->user();
+        $is_admin = $user->is_admin;
+
+        $query = $this->buildQuery();
 
         $tareas = $query->paginate($this->perPage);
         $empleados = User::select('id', 'name')->orderBy('name')->get();
@@ -141,9 +149,14 @@ class TareasSearch extends Component
 
     public function exportExcel()
     {
+        $fileName = 'tareas_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
+        $query = $this->buildQuery();
+        //$query->orderBy($this->sortField, $this->sortDirection);
+        $data = $query->get(); // Reutilizar la lógica de la consulta y obtener los datos
+
         return Excel::download(
-            new TareasExport($this->estatus, $this->empleado, $this->cliente, $this->search),
-            'tareas.xlsx'
+            new TareasExport($data),
+            $fileName
         );
     }
 }

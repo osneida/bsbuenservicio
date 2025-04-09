@@ -3,7 +3,7 @@ name: Sharedhosting deploy
 on:
   push:
     branches:
-      - main***2
+      - main
 
 jobs:
   deploy:
