@@ -47,10 +47,17 @@
         </select>
     </div>
 
-    <table class="table table-hover" style="table-layout: fixed; width: 100%;">
-        <thead>
+    <table class="table table-hover"  style="table-layout: fixed; width: 100%;">
+        <thead class="thead-dark">
             <tr>
-                <th style="width: 5%;">#</th>
+                <th style="width: 5%;">
+                <a href="#" wire:click.prevent="sortBy('id')">
+                        #
+                        @if ($sortField === 'id')
+                            <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
+                        @endif
+                    </a>
+                    </th>
                 <th style="width: 31%;"> <a href="#" wire:click.prevent="sortBy('tarea')">
                         Tarea
                         @if ($sortField === 'tarea')
@@ -129,12 +136,12 @@
         </tbody>
     </table>
 
-    <div class="mt-2 form-group">
+    <div class="mt-2 form-group d-flex justify-content-between align-items-center">
         <span class="float-left">
             {{ $tareas->count() }} <label>de</label> {{ $tareas->total() }} <label>total tareas</label>
         </span>
         <span class="float-right">
-             {!! $tareas->links() !!}
+            {!! $tareas->links() !!}
         </span>
     </div>
 </div>

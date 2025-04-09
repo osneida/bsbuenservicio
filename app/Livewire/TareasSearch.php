@@ -21,7 +21,10 @@ class TareasSearch extends Component
     public $sortField = 'id'; // Campo por defecto para ordenar
     public $sortDirection = 'desc'; // Dirección por defecto
 
-    protected $queryString = ['search', 'estatus', 'empleado', 'cliente', 'perPage', 'sortField', 'sortDirection'];
+    protected $queryString = ['search',
+    'estatus', 'empleado', 'cliente',
+    'perPage', 'sortField',
+    'sortDirection'];
 
     public function sortBy($field)
     {
@@ -62,6 +65,16 @@ class TareasSearch extends Component
     }
 
     public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSortField()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSortDirection()
     {
         $this->resetPage();
     }
