@@ -125,8 +125,8 @@ class TareasSearch extends Component
         $empleados = User::select('id', 'name')->orderBy('name')->get();
         $clientes  = Cliente::select('id', 'name')->where('estatus', 1)->orderBy('name')->get();
 
-        Log::info($query->toSql());
-        Log::info($query->getBindings());
+       // Log::info($query->toSql());
+       // Log::info($query->getBindings());
 
 
         return view('livewire.tareas-search', compact('tareas', 'empleados', 'clientes', 'is_admin'));
