@@ -75,7 +75,7 @@ class TareaGrupoController extends Controller
             }
         }
 
-        return redirect()->route('tareas.index')->with('info', 'Tareas creadas con éxito');
+        return redirect()->route('tareas.indexhtml')->with('info', 'Tareas creadas con éxito');
     }
 
     function obtenerFechasDiasSemana($fecha_inicio, $fecha_fin, $dia)
