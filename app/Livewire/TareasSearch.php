@@ -21,7 +21,7 @@ class TareasSearch extends Component
     public $sortField = 'id'; // Campo por defecto para ordenar
     public $sortDirection = 'desc'; // Dirección por defecto
 
-    protected $updatesQueryString = ['search', 'estatus', 'empleado', 'cliente', 'perPage', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'estatus', 'empleado', 'cliente', 'perPage', 'sortField', 'sortDirection'];
 
     public function sortBy($field)
     {
@@ -70,9 +70,6 @@ class TareasSearch extends Component
     {
         $user = auth()->user();
         $is_admin = $user->is_admin;
-        $query2 = Tarea::select('id', 'tarea', 'estatus', 'fecha', 'horas', 'user_id', 'cliente_id')
-            ->with('cliente:id,name')
-            ->with('user:id,name');
 
         $query = Tarea::select('tareas.id', 'tareas.tarea', 'tareas.estatus', 'tareas.fecha', 'tareas.horas', 'tareas.user_id', 'tareas.cliente_id')
             ->join('clientes', 'tareas.cliente_id', '=', 'clientes.id') // Unir con la tabla clientes
